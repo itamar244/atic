@@ -15,8 +15,9 @@ auto Advance(Iterator it, unsigned n) -> decltype(*it) {
 
 template<class Iterable>
 inline typename Iterable::const_iterator FindItem(
-		const Iterable& iterable,
-		const typename Iterable::value_type& item) {
+	const Iterable& iterable,
+	const typename Iterable::value_type& item
+) {
 	return std::find(iterable.begin(), iterable.end(), item);
 }
 

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
 
-add_library(Atic INTERFACE)
+add_library(${PROJECT_NAME} INTERFACE)
 
-target_include_directories(Atic INTERFACE include)
+target_include_directories(${PROJECT_NAME} INTERFACE include)

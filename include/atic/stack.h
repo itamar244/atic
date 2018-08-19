@@ -1,13 +1,16 @@
 #pragma once
 
 #include <cassert>
+#include <utility>
+#include "atic/node.h"
 
 namespace atic {
 
 template<typename Node>
-Node* __CopyNode(const Node* node) {
-  if (node == nullptr) return nullptr;
-  Node* copy = new Node(node->value), cur = copy;
+std::pair<Node*, Node*> CopyNode(const Node* node) {
+  if (node == nullptr) return {nullptr, nullptr};
+  Node* copy = new Node(node->value);
+  Node* cur = copy;
 
   node = node->next;
   while (node != nullptr) {
@@ -15,15 +18,24 @@ Node* __CopyNode(const Node* node) {
     node = node->next;
   }
 
-  return copy;
+  return {copy, cur};
+}
+
+template<typename Node>
+inline void DeleteNode(Node* node) {
+  while (node) {
+    auto next = node->next;
+    delete node;
+    node = next;
+  }
 }
 
 template<typename T>
-struct __Node {
+struct Node {
   T value;
-  __Node* next;
+  Node* next;
 
-  __Node(T value, __Node* next = nullptr) : value(value), next(next) {}
+  Node(T value, Node* next = nullptr) : value(value), next(next) {}
 };
 
 template<typename T>
@@ -39,7 +51,7 @@ public:
     }
   }
 
-  Stack(const Stack& stack) : head_(__CopyNode(stack.head_)) {}
+  Stack(const Stack& stack) : head_(CopyNode(stack.head_)->first) {}
 
   Stack(Stack&& stack) : head_(stack.head_) {
     stack.head_ = nullptr;
@@ -64,11 +76,11 @@ public:
   }
 
   inline void push_front(T value) {
-    head_ = new __Node<T>(value, head_);
+    head_ = new Node<T>(value, head_);
   }
 
 private:
-  __Node<T>* head_;
+  Node<T>* head_;
 };
 
 } // namespace atic

@@ -34,13 +34,11 @@ public:
     return head_ == nullptr;
   }
 
-  inline T pop() {
-    T value = head();
+  inline void pop() {
     auto next = head_->next;
 
     delete head_;
     head_ = next;
-    return value;
   }
 
   inline void push(T value) {

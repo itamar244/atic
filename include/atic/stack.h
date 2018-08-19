@@ -43,7 +43,7 @@ public:
     return value;
   }
 
-  inline void push_front(T value) {
+  inline void push(T value) {
     head_ = new Node<T>(value, head_);
   }
 

@@ -10,6 +10,7 @@ class List {
   using Node = Node<T>;
 public:
   using value_type = T;
+  using size_type = std::size_t;
   using iterator = NodeIterator<T>;
   using const_iterator = NodeConstIterator<T>;
 
@@ -31,7 +32,7 @@ public:
     DeleteNode(first_);
   }
 
-  inline std::size_t size() const { return size_; }
+  inline size_type size() const { return size_; }
   inline iterator begin() { return {first_}; }
   inline iterator end() { return {nullptr}; }
   inline const_iterator begin() const { return {first_}; }
@@ -47,7 +48,7 @@ public:
   }
 
 protected:
-  std::size_t size_ = 0;
+  size_type size_ = 0;
   Node* first_ = nullptr;
   Node* last_ = nullptr;
 };

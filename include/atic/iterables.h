@@ -27,12 +27,12 @@ inline bool HasItem(const Iterable& iterable, const V& item) {
 }
 
 template<class T, class U>
-using _ValueTypeMap = typename U::value_type(const typename T::value_type&);
+using __ValueTypeMap = typename U::value_type(const typename T::value_type&);
 
 template<class T, class U>
 U MapIterable(
 	const T& origin,
-	const std::function<_ValueTypeMap<T, U> >& pred
+	const std::function<__ValueTypeMap<T, U> >& pred
 ) {
 	U mapped;
 
